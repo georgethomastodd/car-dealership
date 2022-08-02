@@ -20,8 +20,4 @@ class ServiceAppointment(models.Model):
         related_name="appointments",
         on_delete=models.PROTECT,
     ) 
-    vin = models.ForeignKey(
-        AutomobileVO,
-        related_name="appointments",
-        on_delete=models.PROTECT,        
-)
+    vin = models.CharField(max_length=17, null=True)

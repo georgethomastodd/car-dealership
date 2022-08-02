@@ -1,9 +1,21 @@
 import React from "react";
 
+function handleDate(appt){
+    let date = new Date (appt.appt_datetime)
+    return (date.getMonth()+1 + '-'+date.getDate() + "-" + date.getFullYear())
+}
+
+function handleTime(appt){
+    let time = new Date (appt.appt_datetime)
+    return (time.toLocaleTimeString())
+}
+
 class ApptList extends React.Component {
 constructor(props) {
     super(props)
-    this.state = {appointments: []}
+    this.state = {
+        appointments: [],
+    }
 
     this.deleteAppt = this.deleteAppt.bind(this);
 }
@@ -29,15 +41,40 @@ async deleteAppt(appt) {
     this.setState({ appointments: updated_appointments })
 }
 
+async finishAppt(appt) {
+    const editUrl = `http://localhost:8080/api/appts/${appt.id}/`
+    const fetchConfig = {
+        method: "put",
+        body: JSON.stringify({"completed":"True"}),
+        headers: {
+        'Content-Type': 'application/json',
+        },
+    }
+    await fetch(editUrl, fetchConfig)
+
+    const idx = this.state.appointments.indexOf(appt)
+    const updated_appointments = [...this.state.appointments]
+    updated_appointments.splice(idx, 1)
+    this.setState({ appointments: updated_appointments })
+
+}
+
+
 render() {
+
+
+
+
     return (
+    
     <> 
     <table className="table table-striped">
     <thead>
         <tr>
         <th>Vin</th>
         <th>Customer Name</th>
-        <th>Date/Time</th>
+        <th>Date</th>
+        <th>Time</th>
         <th>Technician</th>
         <th>Reason</th>
         <th>VIP</th>
@@ -45,17 +82,42 @@ render() {
     </thead>
     <tbody>
         {this.state.appointments.map(appt => {
-        return (
-            <tr key={appt.id}>
-            <td>{ appt.vin.vin }</td>
-            <td>{ appt.owner }</td>
-            <td>{ appt.appt_datetime }</td>
-            <td>{ appt.technician.name }</td>
-            <td>{ appt.reason }</td>
-            <td>{ appt.vip }</td>
-            <td><button className="btn btn-danger" onClick={() => this.deleteAppt(appt)}>Cancel</button></td>
-            </tr>
-        );
+            return (
+                (appt.completed===false) ?
+                    <tr key={appt.id}>
+                        <td>{ appt.vin }</td>
+                        <td>{ appt.owner }</td>
+                        <td>{ handleDate(appt) }</td>
+                        <td>{ handleTime(appt) }</td>
+                        <td>{ appt.technician.name }</td>
+                        <td>{ appt.reason }</td>
+                        <td>{ String(appt.vip) }</td>
+                        <td><button className="btn btn-danger" onClick={() => this.deleteAppt(appt)}>Cancel</button></td>
+                        <td><button className="btn btn-success" onClick={() => this.finishAppt(appt)}>Finished</button></td>
+                        
+                    </tr>
+                    : null
+            )
+
+        
+            
+        // return (
+            
+        //     <tr key={appt.id}>
+        //     <td>{ appt.vin }</td>
+        //     <td>{ appt.owner }</td>
+        //     <td>{ handleDate(appt) }</td>
+        //     <td>{ handleTime(appt) }</td>
+        //     <td>{ appt.technician.name }</td>
+        //     <td>{ appt.reason }</td>
+        //     <td>{ String(appt.vip) }</td>
+        //     <td><button className="btn btn-danger" onClick={() => this.deleteAppt(appt)}>Cancel</button></td>
+        //     <td>
+        //     {(appt.completed === true) ? <div>Completed</div>
+        //     :<div><button className="btn btn-success" onClick={() => this.finishAppt(appt)}>Finished</button></div>}
+        //     </td>
+        //     </tr>
+        // );        
         })}
     </tbody>
     </table>
@@ -65,3 +127,21 @@ render() {
 }
 
 export default ApptList
+
+
+// return (
+//     (appt.completed===false) ?
+//         <tr key={appt.id}>
+//             <td>{ appt.vin }</td>
+//             <td>{ appt.owner }</td>
+//             <td>{ handleDate(appt) }</td>
+//             <td>{ handleTime(appt) }</td>
+//             <td>{ appt.technician.name }</td>
+//             <td>{ appt.reason }</td>
+//             <td>{ String(appt.vip) }</td>
+//             <td><button className="btn btn-danger" onClick={() => this.deleteAppt(appt)}>Cancel</button></td>
+//             <td><button className="btn btn-success" onClick={() => this.finishAppt(appt)}>Finished</button></td>}
+//         </tr>
+//         : null
+// )
+

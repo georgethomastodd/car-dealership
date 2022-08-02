@@ -34,7 +34,6 @@ class ServiceAppointmentListEncoder(ModelEncoder):
         "completed"
         ]
     encoders = {
-        "vin" : AutomobileVOEncoder(), 
         "technician" : TechnicianEncoder(),
     }
 
@@ -48,10 +47,8 @@ def api_list_appointments(request):
             encoder=ServiceAppointmentListEncoder,
         )
     else:
-        content = json.loads(request.body)
-
-        if content["vin"] in AutomobileVO.objects.all():    
-        # if AutomobileVO.objects.filter(vin=content["vin"]).exists():
+        content = json.loads(request.body)  
+        if AutomobileVO.objects.filter(vin=content["vin"]).exists():
             content["vip"] = True
 
 
@@ -86,15 +83,11 @@ def api_appointment_details(request, pk):
         return JsonResponse({"deleted": count > 0})
     else:
         content = json.loads(request.body)
-        try:
-            if "vin" in content:
-                vin = AutomobileVO.objects.get(vin=content["vin"])
-                content["vin"] = vin
-        except AutomobileVO.DoesNotExist:
-            return JsonResponse(
-                {"message": "Invalid vin"},
-                status=400,
-            )
+
+        # if content["vin"]:
+        #     if AutomobileVO.objects.filter(vin=content["vin"]).exists():
+        #         content["vip"] = True
+
         try:
             if "technician" in content:
                 technician = Technician.objects.get(name=content["technician"])
