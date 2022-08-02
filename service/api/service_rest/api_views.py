@@ -8,8 +8,6 @@ from .models import AutomobileVO, Technician, ServiceAppointment
 class AutomobileVOEncoder(ModelEncoder):
     model = AutomobileVO
     properties = [
-        "color",
-        "year",
         "vin",
     ]
 
