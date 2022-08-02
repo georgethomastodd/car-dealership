@@ -11,6 +11,13 @@ class DateEncoder(JSONEncoder):
         else:
             return super().default(o)
 
+# class DateEncoder(JSONEncoder):
+#     def default(self, o):
+#         if isinstance(o, time):
+#             return o.isoformat()
+#         else:
+#             return super().default(o)
+
 
 class QuerySetEncoder(JSONEncoder):
     def default(self, o):
