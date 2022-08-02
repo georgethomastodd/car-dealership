@@ -3,7 +3,7 @@ import React from "react";
 class ApptList extends React.Component {
 constructor(props) {
     super(props)
-    this.state = {appts: []}
+    this.state = {appointments: []}
 
     this.deleteAppt = this.deleteAppt.bind(this);
 }
@@ -12,7 +12,7 @@ async componentDidMount() {
     const response = await fetch('http://localhost:8080/api/appts/')
     if (response.ok) {
     const data = await response.json()
-    this.setState({ appts: data.hats })
+    this.setState({ appointments: data.appointments })
     }
 }
 
@@ -23,10 +23,10 @@ async deleteAppt(appt) {
     }
     await fetch(deleteUrl, fetchConfig)
 
-    const idx = this.state.appts.indexOf(appt)
-    const updated_appts = [...this.state.appts]
-    updated_appts.splice(idx, 1)
-    this.setState({ appts: updated_appts })
+    const idx = this.state.appointments.indexOf(appt)
+    const updated_appointments = [...this.state.appointments]
+    updated_appointments.splice(idx, 1)
+    this.setState({ appointments: updated_appointments })
 }
 
 render() {
@@ -44,12 +44,12 @@ render() {
         </tr>
     </thead>
     <tbody>
-        {this.state.appts.map(appt => {
+        {this.state.appointments.map(appt => {
         return (
             <tr key={appt.id}>
-            <td>{ appt.vin }</td>
+            <td>{ appt.vin.vin }</td>
             <td>{ appt.owner }</td>
-            <td>{ appt.datetime }</td>
+            <td>{ appt.appt_datetime }</td>
             <td>{ appt.technician.name }</td>
             <td>{ appt.reason }</td>
             <td>{ appt.vip }</td>
