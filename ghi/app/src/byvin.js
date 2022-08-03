@@ -88,7 +88,6 @@ class VinList extends React.Component {
                         <td>{ appt.reason }</td>
                         <td>{ String(appt.vip) }</td>
                         <td>{ String(appt.completed) }</td>
-                        <td><button className="btn btn-danger" onClick={() => this.deleteAppt(appt)}>Cancel</button></td>
                         </tr>
                     );
                     })}
