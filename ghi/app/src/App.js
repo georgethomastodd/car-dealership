@@ -3,6 +3,7 @@ import MainPage from './MainPage';
 import Nav from './Nav';
 import NewCustomerForm from './NewCustomerForm';
 import NewSalesRepForm from './NewSalesRepForm';
+import CreateSalesRecord from './CreateSalesRecord';
 
 function App() {
 
@@ -18,6 +19,12 @@ function App() {
           <Route path="salesreps">
             <Route path="new" element={<NewSalesRepForm />} />
           </Route>
+          <Route path="salesrecord">
+            <Route path="new" element={<CreateSalesRecord />} />
+          </Route>
+          {/* <Route path="salesrecord">
+            <Route path="list" element={<SalesRecord />} />
+          </Route> */}
         </Routes>
       </div>
     </BrowserRouter>

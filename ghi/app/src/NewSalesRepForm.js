@@ -5,7 +5,7 @@ class NewSalesRepForm extends React.Component {
         super(props);
         this.state = {
             name: '',
-            employee_number: '',
+            employeeNumber: '',
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -17,7 +17,6 @@ class NewSalesRepForm extends React.Component {
         const data = { ...this.state };
         data.employee_number = data.employeeNumber;
         delete data.employeeNumber;
-        console.log(data)
 
         const employeeUrl = 'http://localhost:8090/api/salesreps/'
         const fetchConfig = {
@@ -34,20 +33,11 @@ class NewSalesRepForm extends React.Component {
 
             const cleared = {
                 name: '',
-                employee_number: '',
+                employeeNumber: '',
             };
             this.setState(cleared);
         }
     }
-
-    // async componentDidMount() {
-    //     const url = 'http://localhost:8100/api/automobiles/';
-    //     const response = await fetch(url);
-    //     if (response.ok) {
-    //     const data = await response.json();
-    //     this.setState({ customer: data.name });
-    //     }
-    // }
     
     handleChange(event) {
         this.setState({
@@ -69,7 +59,7 @@ class NewSalesRepForm extends React.Component {
                             </div>
 
                             <div className="form-floating mb-3">
-                                <input onChange={this.handleChange} value={this.state.employeeNumber} placeholder="Employee number" required type="text" name="employee_number" id="Employee_number" className="form-control" />
+                                <input onChange={this.handleChange} value={this.state.employeeNumber} placeholder="Employee number" required type="text" name="employeeNumber" id="employee_number" className="form-control" />
                                 <label htmlFor="employee_number">Employee ID Number</label>
                             </div>
 

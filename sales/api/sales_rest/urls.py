@@ -3,10 +3,12 @@ from django.urls import path, include
 from .views import (
     api_list_customers,
     api_list_sales_reps,
+    api_list_sales_records,
 )
 
 
 urlpatterns = [
-    path("customers/", api_list_customers, name="api_list_customers"),
-    path("salesreps/", api_list_sales_reps, name="api_list_sales_reps"),
+    path("customers/", api_list_customers, name="create_customer"),
+    path("salesreps/", api_list_sales_reps, name="create_sales_reps"),
+    path("salesrecord/", api_list_sales_records, name="create_sales_record"),
 ]

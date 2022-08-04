@@ -6,7 +6,7 @@ class NewCustomerForm extends React.Component {
         this.state = {
             name: '',
             address: '',
-            phone_number: '',
+            phoneNumber: '',
         };
 
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -38,20 +38,11 @@ class NewCustomerForm extends React.Component {
             const cleared = {
                 name: '',
                 address: '',
-                phone_number: '',
+                phoneNumber: '',
             };
             this.setState(cleared);
         }
     }
-
-    // async componentDidMount() {
-    //     const url = 'http://localhost:8100/api/automobiles/';
-    //     const response = await fetch(url);
-    //     if (response.ok) {
-    //     const data = await response.json();
-    //     this.setState({ customer: data.name });
-    //     }
-    // }
     
     handleNameChange(event) {
         const value = event.target.value;
