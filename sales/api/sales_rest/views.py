@@ -64,7 +64,7 @@ def api_list_sales_reps(request):
                 safe=False,
             )
         except: 
-            response = JsonResponse({"MESSAGE": "Unable to create sales rep."})
+            response = JsonResponse({"message": "Unable to create sales rep."})
             response.status_code = 400
             return response
 
@@ -78,6 +78,8 @@ def api_list_sales_records(request):
         sales_records = SalesRecord.objects.all()
         # print(sales_records)
         return JsonResponse(
+            # all_sales_records is the name of the list that holds the
+            # sales_records dictionary
             {"all_sales_records": sales_records},
             encoder=SalesRecordEncoder,
         )
@@ -89,18 +91,17 @@ def api_list_sales_records(request):
         try:
             automobile_vin = content["automobile"]
             automobile = AutomobileVO.objects.get(vin=automobile_vin)
-            content["automobile"] = automobile
-            print("!!!!!!!!!!! automobile !!!!!!!!!!!!!!", content)
+            content["automobile"] = automobile            
 
             sales_rep_id = content["sales_rep"]
             sales_rep = SalesRep.objects.get(id=sales_rep_id)
             content["sales_rep"] = sales_rep
-            print("$$$$$$$$$$$ sales_rep $$$$$$$$$$$", content)
+            
 
             customer_id = content["customer"]
             customer = Customer.objects.get(id=customer_id)
             content["customer"] = customer
-            print("******* customer *************", content)
+            
 
             new_sales_record = SalesRecord.objects.create(**content)
             return JsonResponse(
@@ -109,8 +110,28 @@ def api_list_sales_records(request):
                 safe=False,
             )
         
-        # errors will be stored in the letter e
+        # errors will be stored in the variable e
         except Exception as e:
             response = JsonResponse ({"MESSAGE": e})
             response.status_code = 400
             return response 
+
+
+@require_http_methods(["DELETE", "GET"])
+def api_show_sale_record(request, pk):
+    if request.method == "GET":
+        try: 
+            sale_record = SalesRecord.objects.get(id=pk)
+            return JsonResponse(
+                sale_record, 
+                encoder = SalesRecordEncoder,
+                safe = False,
+            )
+        except SalesRecord.DoesNotExist:
+            response = JsonResponse({"MESSAGE": "Sales record does not exist"})
+            response.status_code = 404
+            return response
+
+    else: #DELETE
+        count, _ = SalesRecord.objects.filter(id=pk).delete()
+        return JsonResponse({"deleted": count > 0})
