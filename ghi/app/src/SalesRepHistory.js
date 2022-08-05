@@ -83,7 +83,7 @@ class SalesByRep extends React.Component {
                                     return (
                                         <tr key={sale.id}>
                                             <td>{sale.sales_rep.name}</td>
-                                            <td>{sale.sales_rep.employee_number}</td>
+                                            <td>{sale.customer}</td>
                                             <td>{sale.automobile.vin}</td>
                                             <td>${sale.price}</td>
                                         </tr>
