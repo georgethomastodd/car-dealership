@@ -98,49 +98,4 @@ class VinList extends React.Component {
 }
 }
 
-
-
-
-// render() {
-//     return (
-//     <> 
-//     <table className="table table-striped">
-//     <thead>
-//         <tr>
-//         <th>Vin</th>
-//         <th>Customer Name</th>
-//         <th>Date</th>
-//         <th>Time</th>
-//         <th>Technician</th>
-//         <th>Reason</th>
-//         <th>VIP</th>
-//         </tr>
-//     </thead>
-//     <tbody>
-//         {this.state.appointments.map(appt => {
-//         return (
-//             <tr key={appt.id}>
-//             <td>{ appt.vin.vin }</td>
-//             <td>{ appt.owner }</td>
-//             <td>{ handleDate(appt) }</td>
-//             <td>{ handleTime(appt) }</td>
-//             <td>{ appt.technician.name }</td>
-//             <td>{ appt.reason }</td>
-//             <td>{ appt.vip }</td>
-//             <td><button className="btn btn-danger" onClick={() => this.deleteAppt(appt)}>Cancel</button></td>
-//             </tr>
-//         );
-//         })}
-//     </tbody>
-//     </table>
-//     </> 
-//     )
-// }
-
-/* <td>
-{(appt.completed === true) ? <td>Completed</td>
-:<td><button className="btn btn-success" onClick={() => this.finishAppt(appt)}>Finished</button></td>}
-</td> */
-
-
 export default VinList

@@ -28,9 +28,6 @@ async handleSubmit(event) {
     const newManu = await response.json()
     console.log(newManu)
 
-    // window.location.reload()
-    //needed to clear date/time
-
     const cleared = {
         name: ''
     }

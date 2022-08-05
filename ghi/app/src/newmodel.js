@@ -34,9 +34,6 @@ async handleSubmit(event) {
     const newModel = await response.json()
     console.log(newModel)
 
-    // window.location.reload()
-    //needed to clear date/time
-
     const cleared = {
         name: '',
         picture_url: '',

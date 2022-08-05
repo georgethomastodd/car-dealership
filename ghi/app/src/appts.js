@@ -98,26 +98,6 @@ render() {
                     </tr>
                     : null
             )
-
-        
-            
-        // return (
-            
-        //     <tr key={appt.id}>
-        //     <td>{ appt.vin }</td>
-        //     <td>{ appt.owner }</td>
-        //     <td>{ handleDate(appt) }</td>
-        //     <td>{ handleTime(appt) }</td>
-        //     <td>{ appt.technician.name }</td>
-        //     <td>{ appt.reason }</td>
-        //     <td>{ String(appt.vip) }</td>
-        //     <td><button className="btn btn-danger" onClick={() => this.deleteAppt(appt)}>Cancel</button></td>
-        //     <td>
-        //     {(appt.completed === true) ? <div>Completed</div>
-        //     :<div><button className="btn btn-success" onClick={() => this.finishAppt(appt)}>Finished</button></div>}
-        //     </td>
-        //     </tr>
-        // );        
         })}
     </tbody>
     </table>
@@ -129,19 +109,5 @@ render() {
 export default ApptList
 
 
-// return (
-//     (appt.completed===false) ?
-//         <tr key={appt.id}>
-//             <td>{ appt.vin }</td>
-//             <td>{ appt.owner }</td>
-//             <td>{ handleDate(appt) }</td>
-//             <td>{ handleTime(appt) }</td>
-//             <td>{ appt.technician.name }</td>
-//             <td>{ appt.reason }</td>
-//             <td>{ String(appt.vip) }</td>
-//             <td><button className="btn btn-danger" onClick={() => this.deleteAppt(appt)}>Cancel</button></td>
-//             <td><button className="btn btn-success" onClick={() => this.finishAppt(appt)}>Finished</button></td>}
-//         </tr>
-//         : null
-// )
+
 

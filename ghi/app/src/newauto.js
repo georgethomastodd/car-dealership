@@ -36,7 +36,7 @@ async handleSubmit(event) {
     console.log(newAuto)
 
     window.location.reload()
-    //needed to clear year state
+    //needed to clear year state since it isn't doing it automatically
 
     const cleared = {
         vin: '',

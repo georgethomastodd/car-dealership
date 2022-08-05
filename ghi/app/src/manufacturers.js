@@ -23,4 +23,4 @@ function ManuList(props) {
 };
 
 export default ManuList;
-//ternary needed to get ride of undefined error due to delay loading props
+//ternary needed to get rid of undefined error due to delay loading props
