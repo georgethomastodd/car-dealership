@@ -32,7 +32,7 @@ def api_automobiles(request):
             )
         except:
             response = JsonResponse(
-                {"message": "Could not create the automobile"}
+                {"message": "This VIN number already exists"}
             )
             response.status_code = 400
             return response
@@ -49,7 +49,7 @@ def api_automobile(request, vin):
                 safe=False
             )
         except Automobile.DoesNotExist:
-            response = JsonResponse({"message": "Does not exist"})
+            response = JsonResponse({"message": "Automobile does not exist"})
             response.status_code = 404
             return response
     elif request.method == "DELETE":

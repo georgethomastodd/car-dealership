@@ -11,8 +11,15 @@ import AutoList from './autos';
 import ManuForm from './newmanu';
 import ModelForm from './newmodel';
 import AutoForm from './newauto';
+import NewCustomerForm from './NewCustomerForm';
+import NewSalesRepForm from './NewSalesRepForm';
+import CreateSalesRecord from './CreateSalesRecord';
+import SalesList from './ListAllSales';
+import SalesByRep from './SalesRepHistory';
+
 
 function App(props) {
+
   return (
     <BrowserRouter>
       <Nav />
@@ -29,6 +36,21 @@ function App(props) {
           <Route path="/models/new/" element={<ModelForm />} />
           <Route path="/autos/" element={<AutoList autos={props.autos} />} /> 
           <Route path="/autos/new/" element={<AutoForm />} /> 
+          <Route path="customers">
+            <Route path="new" element={<NewCustomerForm />} />
+          </Route>
+          <Route path="salesreps">
+            <Route path="new" element={<NewSalesRepForm />} />
+          </Route>
+          <Route path="salesrecord">
+            <Route path="new" element={<CreateSalesRecord />} />
+          </Route>
+          <Route path="salesrecord">
+            <Route path="list" element={<SalesList />} />
+          </Route>
+          <Route path="salesreps">
+            <Route path="history" element={<SalesByRep />} />
+          </Route>
         </Routes>
       </div>
     </BrowserRouter>
