@@ -82,7 +82,7 @@ class NewCustomerForm extends React.Component {
                             <div className="form-floating mb-3">
                                 <input onChange={this.handlePhoneNumberChange} value={this.state.phoneNumber} placeholder="Phone number" required type="text" name="phone_number"
                                     id="phone_number" className="form-control" />
-                                <label htmlFor="phone_number">Customer Phone Number</label>
+                                <label htmlFor="phone_number">Phone Number - Without Dashes </label>
                             </div>
 
                             <button type="submit" className="btn btn-primary">Submit</button>

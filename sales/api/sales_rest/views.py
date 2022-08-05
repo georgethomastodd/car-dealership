@@ -100,6 +100,8 @@ def api_list_sales_records(request):
             customer = Customer.objects.get(id=customer_id)
             content["customer"] = customer
             
+            print(content)
+
             new_sales_record = SalesRecord.objects.create(**content)
             return JsonResponse(
                 new_sales_record,
