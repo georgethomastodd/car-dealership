@@ -74,9 +74,7 @@ def api_list_sales_reps(request):
 @require_http_methods(["GET", "POST"])
 def api_list_sales_records(request):
     if request.method == "GET":
-        # get a list of all sales
         sales_records = SalesRecord.objects.all()
-        # print(sales_records)
         return JsonResponse(
             # all_sales_records is the name of the list that holds the
             # sales_records dictionary
@@ -102,7 +100,6 @@ def api_list_sales_records(request):
             customer = Customer.objects.get(id=customer_id)
             content["customer"] = customer
             
-
             new_sales_record = SalesRecord.objects.create(**content)
             return JsonResponse(
                 new_sales_record,
@@ -112,7 +109,7 @@ def api_list_sales_records(request):
         
         # errors will be stored in the variable e
         except Exception as e:
-            response = JsonResponse ({"MESSAGE": e})
+            response = JsonResponse ({"message": e})
             response.status_code = 400
             return response 
 

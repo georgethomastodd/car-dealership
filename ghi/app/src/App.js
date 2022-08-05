@@ -5,6 +5,7 @@ import NewCustomerForm from './NewCustomerForm';
 import NewSalesRepForm from './NewSalesRepForm';
 import CreateSalesRecord from './CreateSalesRecord';
 import SalesList from './ListAllSales';
+import SalesByRep from './SalesRepHistory';
 
 function App() {
 
@@ -25,6 +26,9 @@ function App() {
           </Route>
           <Route path="salesrecord">
             <Route path="list" element={<SalesList />} />
+          </Route>
+          <Route path="salesreps">
+            <Route path="history" element={<SalesByRep />} />
           </Route>
         </Routes>
       </div>

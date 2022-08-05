@@ -33,7 +33,9 @@ class CreateSalesRecord extends React.Component {
         const response = await fetch(salesRecordUrl, fetchConfig)
         if (response.ok) {
             const newSalesRecord = await response.json()
-            console.log("newsalesrecord", newSalesRecord)
+            // console.log("newsalesrecord", newSalesRecord)
+
+            window.location.reload()
 
             const cleared = {
                 price: "",
@@ -49,29 +51,66 @@ class CreateSalesRecord extends React.Component {
         const autoUrl = 'http://localhost:8100/api/automobiles/';
         const customerUrl = 'http://localhost:8090/api/customers/';
         const repUrl = 'http://localhost:8090/api/salesreps/';
+        const salesRecordsUrl = 'http://localhost:8090/api/salesrecord/';
         
         const autoResponse = await fetch(autoUrl);
         const customerResponse = await fetch(customerUrl);
         const repResponse = await fetch(repUrl);
+        const salesRecordsResponse = await fetch(salesRecordsUrl)
 
-
-        if (autoResponse.ok && customerResponse.ok && repResponse.ok) {
+        if (autoResponse.ok && customerResponse.ok && repResponse.ok && salesRecordsResponse.ok) {
         const autoData = await autoResponse.json();
         const customerData = await customerResponse.json();
         const repData = await repResponse.json();
+        const salesRecordsData = await salesRecordsResponse.json();
 
         // autos is defined in inventory\api\inventory_rest\views.py
+        // get all the automobiles
         this.setState({ automobiles: autoData.autos });
         this.setState({ customers: customerData.customers });
         this.setState({ salesReps: repData.sales_reps });
+
+        const auto_vin_only = []
         
+        for (let auto of autoData.autos){
+            // we specifically want to find the vin
+            // auto.vin has a list of all autos sold or not sold
+            auto_vin_only.push(auto.vin)
+        }
+
+        console.log("!!!!!!!!!!!!! vin only", auto_vin_only)
+
+        const sales_records_vins = []
+
+        for (let sale of salesRecordsData.all_sales_records){
+            sales_records_vins.push(sale.automobile.vin)
+        }
         
-        console.log("data.automobiles", autoData.autos)
-        console.log("data.customers", customerData.customers)
-        // console.log("data", data)
+        console.log("%%%%%%%%%%%%%%%%%%%%%", sales_records_vins)
+
+        // list of vins only
+        const unsold_autos_lst = []
+        for (let vin of auto_vin_only){
+            if (!sales_records_vins.includes(vin)){
+                unsold_autos_lst.push(vin)
+            }
+        }
+
+        // we want to get the actual objects not just the vin
+        const result_list = []
+        for (let auto of autoData.autos){
+            if (unsold_autos_lst.includes(auto.vin)){
+                result_list.push(auto)
+            }
+        }
+
+        this.setState({ automobiles: result_list });
+
+        // console.log("data.automobiles", autoData.autos)
+        // console.log("data.customers", customerData.customers)
         // salesReps should match constructor
         // we're setting the state to salesReps
-        console.log("------ data.sales_reps ---------", repData.sales_reps)
+        // console.log("------ data.sales_reps ---------", repData.sales_reps)
         }
     } 
 
@@ -94,7 +133,7 @@ class CreateSalesRecord extends React.Component {
                             <div className="mb-3">
                                 <select onChange={this.handleChange} value={this.state.automobile} required name="automobile" id="automobile" className="form-select">
                                     <option value="">Choose an automobile</option>
-                                    we assume this.state.automobile is an array
+                                    {/* we assume this.state.automobile is an array */}
                                     {this.state.automobiles.map(automobile => {
                                         return (
                                             <option key={automobile.vin} value={automobile.vin}>
